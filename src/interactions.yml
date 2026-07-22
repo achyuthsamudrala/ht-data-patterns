@@ -6,4 +6,129 @@
 # Page slugs are relative paths from src/, without .md extension.
 # Run `make check-interactions` after editing.
 
-edges: []
+edges:
+  - from: patterns/joins-and-shuffle/data-skew-and-salting
+    to: patterns/joins-and-shuffle/spill-to-disk
+    label: "skew × oversized partition → spill"
+    description: >
+      A skewed key produces a single, oversized partition that is far more likely to
+      individually exceed the per-task memory budget than the job's average partition
+      would suggest, triggering spill on that one task while its neighbors run
+      entirely in memory.
+
+  - from: patterns/spark-internals/adaptive-query-execution
+    to: patterns/joins-and-shuffle/data-skew-and-salting
+    label: "runtime statistics × skew detection"
+    description: >
+      AQE's skew-join optimization automates what manual salting otherwise requires
+      by hand, using measured (not estimated) partition sizes at runtime to detect
+      and split oversized partitions after the fact.
+
+  - from: patterns/sql-execution/statistics-and-cardinality-estimation
+    to: patterns/sql-execution/join-ordering
+    label: "bad estimates × many joins → compounding error"
+    description: >
+      Cardinality estimation errors compound multiplicatively across a multi-way
+      join's ordering decisions, so a query with many joins is far more exposed to a
+      single bad early estimate than a two-table join would be.
+
+  - from: patterns/streaming/backpressure-in-streaming
+    to: patterns/streaming/checkpointing-and-fault-tolerance
+    label: "sustained lag × growing replay window"
+    description: >
+      A pipeline under sustained backpressure accumulates more unprocessed data the
+      longer the mismatch persists, directly increasing the replay window a
+      checkpoint-based recovery would need to reprocess after a failure.
+
+  - from: patterns/streaming/watermarks-and-late-data
+    to: patterns/streaming/stateful-processing-and-state-stores
+    label: "conservative watermark × unbounded state growth"
+    description: >
+      A watermark set to wait longer for late data keeps windows (and their
+      associated state) open longer, directly increasing the state a stream
+      processor's state store has to hold before a window can close and its state
+      can be released.
+
+  - from: patterns/storage/compaction-strategies
+    to: patterns/storage/object-store-characteristics
+    label: "small-file backlog × listing cost"
+    description: >
+      Falling behind on compaction leaves many small files accumulated, and each
+      additional file adds its own object-store listing and per-request overhead,
+      compounding the read-side cost of the backlog beyond the raw data volume.
+
+  - from: patterns/storage/table-formats-and-metadata-layers
+    to: patterns/query-systems/distributed-query-coordination
+    label: "metadata bloat × coordinator planning cost"
+    description: >
+      A table's growing transaction log or manifest metadata directly adds to query
+      planning time on the coordinator, since the current file set has to be resolved
+      from that metadata before any worker can begin scanning.
+
+  - from: patterns/indexing/secondary-indexes-and-write-amplification
+    to: patterns/indexing/index-maintenance-vs-compaction
+    label: "index write cost × shared I/O budget"
+    description: >
+      Every secondary index adds its own write and compaction burden, and that
+      burden competes with storage compaction for the same underlying I/O budget,
+      compounding two independently-tuned maintenance costs into one shared
+      bottleneck.
+
+  - from: patterns/serving/hot-partition-handling
+    to: patterns/joins-and-shuffle/data-skew-and-salting
+    label: "same power-law skew, batch and serving"
+    description: >
+      The same power-law key distribution that produces a batch-job straggler
+      produces a live serving hot partition — the mechanism is identical, only the
+      cost (a slow task vs. degraded live latency) differs.
+
+  - from: patterns/serving/read-replicas-and-staleness
+    to: patterns/serving/feature-store-serving
+    label: "replication lag × training-serving skew"
+    description: >
+      An online feature store backed by a lagging replica or a stale materialization
+      pipeline serves feature values that diverge from what a model saw during
+      training, compounding staleness with training-serving skew.
+
+  - from: patterns/query-systems/query-admission-control
+    to: patterns/query-systems/straggler-queries-and-resource-isolation
+    label: "no admission control × one bad query, whole cluster"
+    description: >
+      Without admission control to reject or queue a resource-heavy query before it
+      starts, a single badly-planned or skewed query can consume a disproportionate
+      share of shared cluster resources, degrading every other concurrent query.
+
+  - from: patterns/indexing/btree-vs-lsm-tree
+    to: patterns/streaming/stateful-processing-and-state-stores
+    label: "LSM write throughput × state store design"
+    description: >
+      Most stream-processing state stores are built on LSM-tree engines specifically
+      for their write-throughput characteristics, which means state store recovery
+      and compaction inherit LSM's own write/read amplification tradeoff directly.
+
+  - from: patterns/spark-internals/memory-management
+    to: patterns/joins-and-shuffle/spill-to-disk
+    label: "storage-memory borrowing × execution headroom"
+    description: >
+      Caching an unrelated dataset elsewhere in the same application occupies
+      storage memory that execution could otherwise have borrowed, tightening the
+      effective budget available to a shuffle or aggregation and making spill more
+      likely at a data volume that would otherwise have fit comfortably.
+
+  - from: patterns/sql-execution/vectorized-execution
+    to: patterns/spark-internals/serialization-and-tungsten
+    label: "UDF breaks both optimizations at once"
+    description: >
+      A row-at-a-time UDF is opaque to both the vectorized execution engine and
+      whole-stage code generation, forcing a fallback to row-at-a-time,
+      JVM-object-based processing for the surrounding operator chain in both
+      systems simultaneously.
+
+  - from: patterns/query-systems/query-federation
+    to: patterns/sql-execution/predicate-and-projection-pushdown
+    label: "federation boundary defeats pushdown"
+    description: >
+      Pushdown optimizations that work well within a single engine frequently don't
+      cross a query federation boundary, since they depend on the specific
+      connector's ability to translate a filter into the remote source's native
+      query language.

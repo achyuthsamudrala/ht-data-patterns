@@ -3,10 +3,6 @@
 The incident-mode entry point. Find your observable below, then follow the discriminators
 to the most likely candidate patterns.
 
-> **Status:** skeleton only — categories are laid out, entries get filled in as each
-> pattern family's pages are written (see the family phases). Run `make check-symptoms`
-> to see which pattern pages aren't linked here yet.
-
 ---
 
 ## Batch job is slow
