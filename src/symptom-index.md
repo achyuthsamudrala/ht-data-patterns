@@ -67,10 +67,13 @@ to the most likely candidate patterns.
 - Selecting fewer columns doesn't reduce scan time → [Columnar Storage Formats](patterns/sql-execution/columnar-storage-formats.md)
 - Cost-based plan choice looks reasonable but is based on wrong row-count estimates → [Query Planning & Cost-Based Optimization](patterns/sql-execution/query-planning-and-cbo.md)
 - Estimated and actual row counts diverge sharply for correlated columns → [Statistics & Cardinality Estimation](patterns/sql-execution/statistics-and-cardinality-estimation.md)
+- `GROUP BY` memory usage scales with distinct group count → [Aggregation Strategies](patterns/sql-execution/aggregation-strategies.md)
+- `COUNT(DISTINCT ...)` on a high-cardinality column is much slower than expected → [Aggregation Strategies](patterns/sql-execution/aggregation-strategies.md)
+- Adding a window function introduces an unexpected new shuffle stage → [SQL Window Functions](patterns/sql-execution/sql-window-functions.md)
 
 ### Plan changes after a routine data refresh
 
-- Table statistics stale or not recomputed → statistics and cardinality estimation
+- Table statistics stale or not recomputed → [Statistics & Cardinality Estimation](patterns/sql-execution/statistics-and-cardinality-estimation.md)
 
 ---
 

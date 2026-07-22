@@ -14,3 +14,5 @@ These patterns cover how a single query engine turns SQL into an execution plan 
 - [Columnar Storage Formats](columnar-storage-formats.md)
 - [Join Ordering](join-ordering.md)
 - [Statistics & Cardinality Estimation](statistics-and-cardinality-estimation.md)
+- [Aggregation Strategies](aggregation-strategies.md)
+- [SQL Window Functions](sql-window-functions.md)

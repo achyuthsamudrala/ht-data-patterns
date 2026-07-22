@@ -46,6 +46,8 @@
   - [Columnar Storage Formats](patterns/sql-execution/columnar-storage-formats.md)
   - [Join Ordering](patterns/sql-execution/join-ordering.md)
   - [Statistics & Cardinality Estimation](patterns/sql-execution/statistics-and-cardinality-estimation.md)
+  - [Aggregation Strategies](patterns/sql-execution/aggregation-strategies.md)
+  - [SQL Window Functions](patterns/sql-execution/sql-window-functions.md)
 
 - [Event-Driven / Streaming Systems](patterns/streaming/index.md)
   - [Kafka Partitioning & Consumer Groups](patterns/streaming/kafka-partitioning-and-consumer-groups.md)
