@@ -151,6 +151,31 @@ to the most likely candidate patterns.
 
 ---
 
+## Index or write path is unhealthy
+
+### Write throughput degrades after adding an index
+
+- Every secondary index doubles (or more) the writes per mutation → [Secondary Indexes & Write Amplification](patterns/indexing/secondary-indexes-and-write-amplification.md)
+
+### Point-lookup latency is high and variable
+
+- LSM-tree read path checking many unmerged sstables → [B-Tree vs. LSM-Tree Tradeoffs](patterns/indexing/btree-vs-lsm-tree.md)
+
+### Pruning stops working for a specific column's filters
+
+- Data isn't clustered by that column → [Sort Keys & Z-Ordering](patterns/indexing/sort-keys-and-z-ordering.md)
+- Bloom filter false-positive rate has crept up past its sized capacity → [Bloom Filters & Zone Maps](patterns/indexing/bloom-filters-and-zone-maps.md)
+
+### Search/log index size is disproportionate to source data
+
+- High lexical diversity or per-posting metadata overhead → [Inverted Indexes for Search/Log Data](patterns/indexing/inverted-indexes.md)
+
+### Maintenance jobs interfere with each other
+
+- Compaction and index rebuild competing for the same I/O → [Index Maintenance vs. Compaction Interplay](patterns/indexing/index-maintenance-vs-compaction.md)
+
+---
+
 ## Query system is congested
 
 ### Queries queue for a long time before running
