@@ -61,9 +61,12 @@ to the most likely candidate patterns.
 
 ### Query is correct but far slower than expected
 
-- Wrong join order chosen → join ordering
-- Full scan where a filter should prune → predicate/projection pushdown not applied
-- Row-at-a-time execution on a large scan → vectorized execution
+- Wrong join order chosen, one intermediate result far larger than expected → [Join Ordering](patterns/sql-execution/join-ordering.md)
+- Full scan where a filter should prune → [Predicate & Projection Pushdown](patterns/sql-execution/predicate-and-projection-pushdown.md)
+- Row-at-a-time execution on a large scan → [Vectorized Execution](patterns/sql-execution/vectorized-execution.md)
+- Selecting fewer columns doesn't reduce scan time → [Columnar Storage Formats](patterns/sql-execution/columnar-storage-formats.md)
+- Cost-based plan choice looks reasonable but is based on wrong row-count estimates → [Query Planning & Cost-Based Optimization](patterns/sql-execution/query-planning-and-cbo.md)
+- Estimated and actual row counts diverge sharply for correlated columns → [Statistics & Cardinality Estimation](patterns/sql-execution/statistics-and-cardinality-estimation.md)
 
 ### Plan changes after a routine data refresh
 
