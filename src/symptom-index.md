@@ -180,5 +180,18 @@ to the most likely candidate patterns.
 
 ### Queries queue for a long time before running
 
-- No admission control or workload isolation → query admission control
-- One tenant's queries starve others → query queueing and fair scheduling
+- No admission control or workload isolation → [Query Admission Control & Workload Management](patterns/query-systems/query-admission-control.md)
+- One tenant's queries starve others → [Query Queueing & Fair Scheduling](patterns/query-systems/query-queueing-and-fair-scheduling.md)
+
+### Cluster-wide slowdown traced to a single node or single query
+
+- Coordinator saturated even though workers are healthy → [Distributed Query Coordination](patterns/query-systems/distributed-query-coordination.md)
+- One badly-planned or skewed query crowding out all others → [Straggler Queries & Resource Isolation](patterns/query-systems/straggler-queries-and-resource-isolation.md)
+
+### Federated query across two systems is much slower than either alone
+
+- Pushdown doesn't cross the federation boundary → [Query Federation Across Engines](patterns/query-systems/query-federation.md)
+
+### Cached plan or cached result is wrong or unexpectedly missed
+
+- Plan cache and result cache have different, independent invalidation triggers → [Result/Plan Caching](patterns/query-systems/result-and-plan-caching.md)
