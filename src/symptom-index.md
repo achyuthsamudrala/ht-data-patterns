@@ -130,11 +130,24 @@ to the most likely candidate patterns.
 
 ### Point lookups are slow despite an OLAP-shaped backend
 
-- Analytical engine used for a serving workload → point lookups vs. analytical scans
+- Analytical engine used for a serving workload → [Point Lookups vs. Analytical Scans](patterns/serving/point-lookups-vs-analytical-scans.md)
 
 ### Read replicas return stale data under load
 
-- Replication lag not surfaced to callers → read replicas and staleness
+- Replication lag not surfaced to callers → [Read Replicas & Staleness](patterns/serving/read-replicas-and-staleness.md)
+
+### Dashboard value looks wrong or lags recent updates
+
+- Rollup/materialized view refresh lag → [OLAP Serving Layer](patterns/serving/olap-serving-layer.md)
+- Stale cache hit after a write → [Result/Query Caching](patterns/serving/result-and-query-caching.md)
+
+### Model performs worse in production than offline evaluation suggested
+
+- Online and offline feature computation diverge → [Feature Store Serving](patterns/serving/feature-store-serving.md)
+
+### One partition or shard is disproportionately slow under otherwise-healthy aggregate load
+
+- A single hot key concentrated on one partition → [Hot Partition Handling in Serving](patterns/serving/hot-partition-handling.md)
 
 ---
 
