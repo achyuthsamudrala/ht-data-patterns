@@ -78,17 +78,24 @@ to the most likely candidate patterns.
 
 ### Consumer lag growing steadily
 
-- Backpressure not applied, buffers filling → backpressure in streaming
-- Partition count too low for throughput → Kafka partitioning
+- Backpressure not applied, buffers filling → [Backpressure in Streaming](patterns/streaming/backpressure-in-streaming.md)
+- Partition count too low for throughput → [Kafka Partitioning & Consumer Groups](patterns/streaming/kafka-partitioning-and-consumer-groups.md)
+- Rebalance pauses the entire consumer group, not just affected partitions → [Kafka Partitioning & Consumer Groups](patterns/streaming/kafka-partitioning-and-consumer-groups.md)
 
 ### State size grows without bound
 
-- Window or state TTL not configured → stateful processing and state stores
+- Window or state TTL not configured → [Stateful Processing & State Stores](patterns/streaming/stateful-processing-and-state-stores.md)
+- Sliding or session windows accumulating more state than expected → [Windowing Strategies](patterns/streaming/windowing-strategies.md)
 
 ### Late-arriving data is silently dropped or double-counted
 
-- Watermark too aggressive or too lax → watermarks and late data
-- Delivery semantics assumed but not actually exactly-once → exactly-once semantics
+- Watermark too aggressive or too lax → [Watermarks & Late Data](patterns/streaming/watermarks-and-late-data.md)
+- Delivery semantics assumed but not actually exactly-once → [Exactly-Once Semantics](patterns/streaming/exactly-once-semantics.md)
+
+### Recovery after a failure is much slower than the outage itself
+
+- Large replay window since the last checkpoint → [Checkpointing & Fault Tolerance](patterns/streaming/checkpointing-and-fault-tolerance.md)
+- Latency floor that won't go below the batch interval → [Micro-batch vs. Continuous Processing](patterns/streaming/microbatch-vs-continuous.md)
 
 ---
 
