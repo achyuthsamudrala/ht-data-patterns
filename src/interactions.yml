@@ -1,0 +1,9 @@
+# Interaction edges between patterns.
+# Each edge: from + to + label + description.
+# Scripts read this to generate interaction-map.md's Mermaid block
+# and to check that all referenced pages exist.
+#
+# Page slugs are relative paths from src/, without .md extension.
+# Run `make check-interactions` after editing.
+
+edges: []
