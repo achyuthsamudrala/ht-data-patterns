@@ -8,6 +8,8 @@
 
 # Foundations
 
+- [Spark Execution Model Basics](foundations/spark-execution-model-basics.md)
+- [SQL Query Execution Basics](foundations/sql-query-execution-basics.md)
 - [Partitioning & Data Locality](foundations/partitioning-and-data-locality.md)
 - [The Memory & I/O Hierarchy](foundations/the-memory-and-io-hierarchy.md)
 - [Batch vs. Streaming: The Latency/Throughput/Consistency Spectrum](foundations/batch-vs-streaming-spectrum.md)

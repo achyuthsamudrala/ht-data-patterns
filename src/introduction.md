@@ -61,8 +61,8 @@ of any mitigation at all.
 ## Where to start
 
 - If something is on fire right now: [Symptom Index](symptom-index.md)
-- If you want the underlying concepts before reading patterns:
-  [Foundations](foundations/partitioning-and-data-locality.md)
+- If you want the underlying concepts before reading patterns, or a refresher on
+  Spark/SQL execution basics: [Foundations](foundations/spark-execution-model-basics.md)
 - If you want to understand how patterns combine: [Interaction Map](interaction-map.md)
 - If you're debugging a slow join or shuffle spill:
   [Joins & Shuffle patterns](patterns/joins-and-shuffle/index.md)
