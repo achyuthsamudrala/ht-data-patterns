@@ -36,11 +36,24 @@ to the most likely candidate patterns.
 ### Executor OOM during shuffle or join
 
 - Large partition, single key → [Data Skew & Salting](patterns/joins-and-shuffle/data-skew-and-salting.md)
-- Memory fraction misconfigured relative to spill threshold → memory management
+- Memory fraction misconfigured relative to spill threshold → [Memory Management](patterns/spark-internals/memory-management.md)
+- Caching an unrelated DataFrame destabilizes a shuffle stage elsewhere → [Memory Management](patterns/spark-internals/memory-management.md)
 
 ### Job fails only on full production data, not in staging
 
-- Cardinality-dependent join strategy chosen at small scale doesn't hold at full scale
+- Cardinality-dependent join strategy chosen at small scale doesn't hold at full scale → [Physical Plan Selection](patterns/spark-internals/physical-plan-selection.md)
+
+### Job hangs with no visible task activity
+
+- Waiting on a single straggler task before the next stage can start → [Stages, Tasks & the DAG Scheduler](patterns/spark-internals/stages-tasks-and-the-dag-scheduler.md)
+- One slow task, duplicated elsewhere in the cluster → [Speculative Execution & Stragglers](patterns/spark-internals/speculative-execution-and-stragglers.md)
+
+### Query plan looks reasonable but the job is still slow
+
+- Physical plan differs between `explain()` and the execution UI's reported plan → [Adaptive Query Execution (AQE)](patterns/spark-internals/adaptive-query-execution.md)
+- A UDF disables pushdown for everything downstream of it → [Catalyst Optimizer & Logical Plans](patterns/spark-internals/catalyst-optimizer.md)
+- Fact table scan reads partitions that can't match the join filter → [Dynamic Partition Pruning](patterns/spark-internals/dynamic-partition-pruning.md)
+- Significant CPU time in (de)serialization rather than computation → [Serialization & Tungsten](patterns/spark-internals/serialization-and-tungsten.md)
 
 ---
 
