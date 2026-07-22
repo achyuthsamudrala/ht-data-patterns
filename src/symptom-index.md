@@ -13,18 +13,21 @@ to the most likely candidate patterns.
 
 ### One task takes far longer than the rest
 
-- Single key dominates a partition → data skew
-- One executor/node is consistently slow, others fine → straggler, not skew
+- Single key dominates a partition → [Data Skew & Salting](patterns/joins-and-shuffle/data-skew-and-salting.md)
+- One executor/node is consistently slow, others fine → [Speculative Execution & Stragglers](patterns/spark-internals/speculative-execution-and-stragglers.md)
 
 ### Job spends most of its time in shuffle
 
-- Large shuffle write/read relative to input size → shuffle partitioning strategy
-- Disk spill visible in stage metrics → spill to disk
+- Large shuffle write/read relative to input size → [Shuffle Partitioning Strategy](patterns/joins-and-shuffle/shuffle-partitioning-strategy.md)
+- Disk spill visible in stage metrics → [Spill to Disk](patterns/joins-and-shuffle/spill-to-disk.md)
+- Many small, scattered shuffle reads rather than fewer large ones → [Shuffle Service Internals](patterns/joins-and-shuffle/shuffle-service-internals.md)
 
 ### Job is slow after a schema or data-volume change
 
-- Join strategy flipped from broadcast to shuffle → broadcast vs. shuffle join
-- Plan looks the same but runs slower → stale statistics, cost-based optimization
+- Join strategy flipped from broadcast to shuffle → [Broadcast vs. Shuffle Join](patterns/joins-and-shuffle/broadcast-vs-shuffle-join.md)
+- Plan looks the same but runs slower → [Statistics & Cardinality Estimation](patterns/sql-execution/statistics-and-cardinality-estimation.md)
+- A previously shuffle-free join now shuffles → [Bucketing & Co-partitioning](patterns/joins-and-shuffle/bucketing-and-co-partitioning.md)
+- Hash join spills where it used to fit in memory → [Sort-Merge vs. Shuffle-Hash Join](patterns/joins-and-shuffle/sort-merge-vs-shuffle-hash-join.md)
 
 ---
 
@@ -32,7 +35,7 @@ to the most likely candidate patterns.
 
 ### Executor OOM during shuffle or join
 
-- Large partition, single key → data skew
+- Large partition, single key → [Data Skew & Salting](patterns/joins-and-shuffle/data-skew-and-salting.md)
 - Memory fraction misconfigured relative to spill threshold → memory management
 
 ### Job fails only on full production data, not in staging
