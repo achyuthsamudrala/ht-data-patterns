@@ -103,12 +103,26 @@ to the most likely candidate patterns.
 
 ### Small-file problem: too many tiny files, listing is slow
 
-- Compaction not keeping up with ingest rate → compaction strategies
-- Object store listing cost dominating → object store characteristics
+- Compaction not keeping up with ingest rate → [Compaction Strategies](patterns/storage/compaction-strategies.md)
+- Object store listing cost dominating → [Object Store Characteristics](patterns/storage/object-store-characteristics.md)
+- High-cardinality partition column producing tiny partitions → [Partition Layout & Pruning](patterns/storage/partition-layout-and-pruning.md)
+- Write-heavy streaming ingestion into a columnar sink → [Row vs. Columnar File Formats](patterns/storage/row-vs-columnar-file-formats.md)
 
 ### Query touches far more data than it should
 
-- Partition layout doesn't match query filters → partition layout and pruning
+- Partition layout doesn't match query filters → [Partition Layout & Pruning](patterns/storage/partition-layout-and-pruning.md)
+
+### Query planning itself is slow, before any data is scanned
+
+- Table has accumulated many snapshots or transaction log entries → [Table Formats & Metadata Layers](patterns/storage/table-formats-and-metadata-layers.md)
+
+### A previously-fast query against historical data becomes slow
+
+- Data aged into a colder storage tier → [Storage Tiering](patterns/storage/storage-tiering.md)
+
+### Data loss or unavailability despite a redundancy factor that should have covered it
+
+- Correlated failure (rack, zone) violated the independence assumption behind replication or erasure coding → [Replication & Erasure Coding](patterns/storage/replication-and-erasure-coding.md)
 
 ---
 
