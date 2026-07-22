@@ -9,9 +9,11 @@
 # Foundations
 
 - [Partitioning & Data Locality](foundations/partitioning-and-data-locality.md)
+- [The Memory & I/O Hierarchy](foundations/the-memory-and-io-hierarchy.md)
 - [Batch vs. Streaming: The Latency/Throughput/Consistency Spectrum](foundations/batch-vs-streaming-spectrum.md)
-- [The Cost Model of Shuffle](foundations/shuffle-cost-model.md)
 - [Event Time vs. Processing Time](foundations/event-time-vs-processing-time.md)
+- [Consistency Models for Distributed Data](foundations/consistency-models-for-distributed-data.md)
+- [The Cost Model of Shuffle](foundations/shuffle-cost-model.md)
 
 ---
 
